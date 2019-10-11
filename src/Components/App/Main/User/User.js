@@ -3,20 +3,26 @@ import React from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
+import { identifier } from '@babel/types';
 
 class User extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
-            carreras: [],
+            carrera: {},
+            id:'',
+            endPoint: '',
         }
     }
 
     componentDidMount () {
         const token = localStorage.getItem("token");
+        id = localStorage.getItem("role");
+        endPoint = 'http://localhost:1337/carreras/' + id;
         if (token) {
-          fetch('http://localhost:1337/carreras/', {
+
+          fetch('http://localhost:1337/carreras/1', {
             method: 'get',
             body: null,
             headers: {
@@ -28,9 +34,9 @@ class User extends React.Component{
           .then(response => response.json())
           .then(data => {
             this.setState({
-              carreras: data
+              carrera: data
             });
-            console.log("carreras: ", this.state.carreras);
+            console.log("carreras: ", this.state.carrera.Nombre);
           })
           
         }
@@ -40,14 +46,9 @@ class User extends React.Component{
         return(
             <Row>
             <Col>
-            <h1>Alumnos</h1>
+            <h1>Tu carrera es:</h1>
               <ListGroup>
-                {this.state.carreras.map(
-                    (carrera,index) =>
-                        ( 
-                            <ListGroup.Item>{carrera.Nombre}</ListGroup.Item>
-                          )
-                        )}
+                <ListGroup.Item>{this.state.carrera.Nombre}</ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>

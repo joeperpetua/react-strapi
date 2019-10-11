@@ -52,6 +52,7 @@ class Login extends React.Component {
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("role", JSON.stringify(data.user.role.name));
+          localStorage.setItem("carrera", JSON.stringify(data.user.carrera));
         }
     });
 
