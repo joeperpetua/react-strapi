@@ -18,11 +18,11 @@ class User extends React.Component{
 
     componentDidMount () {
         const token = localStorage.getItem("token");
-        id = localStorage.getItem("role");
-        endPoint = 'http://localhost:1337/carreras/' + id;
+        
         if (token) {
-
-          fetch('http://localhost:1337/carreras/1', {
+          this.state.id = localStorage.getItem("carrera");
+          this.state.endPoint = 'http://localhost:1337/carreras/' + this.state.id;
+          fetch(this.state.endPoint, {
             method: 'get',
             body: null,
             headers: {

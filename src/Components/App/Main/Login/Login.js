@@ -52,12 +52,18 @@ class Login extends React.Component {
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("role", JSON.stringify(data.user.role.name));
-          localStorage.setItem("carrera", JSON.stringify(data.user.carrera));
+          
+          if (localStorage.getItem("role") === '"alumno"') {
+            localStorage.setItem("carrera", JSON.stringify(data.user.alumno.carrera));
+          console.log(data.user.alumno);
+          }
+          
         }
     });
 
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
+
     if (token && role === '"admin"') {
       window.location.replace("/admin");
     }
@@ -65,6 +71,8 @@ class Login extends React.Component {
     if (token && role === '"alumno"') {
       window.location.replace("/user");
     }
+
+
   }
 
   handleInputChange(event) {
